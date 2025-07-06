@@ -1,7 +1,9 @@
 
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
       {/* 背景圖片 */}
@@ -37,13 +39,15 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg"
+            onClick={() => navigate('/members')}
           >
             了解更多
           </Button>
           <Button 
             variant="outline" 
             size="lg"
-            className="border-white text-white hover:bg-white hover:text-primary px-8 py-3 text-lg"
+            className="border-white text-black hover:bg-white hover:text-primary px-8 py-3 text-lg"
+            onClick={() => navigate('/contact')}
           >
             聯絡我們
           </Button>
