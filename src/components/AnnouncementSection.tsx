@@ -78,9 +78,9 @@ const AnnouncementSection = () => {
                   variant="outline" 
                   size="sm" 
                   className="w-full hover:bg-primary hover:text-primary-foreground transition-colors"
-                  onClick={() => {
+                  onClick={announcement.url && (() => {
                     window.location.href=announcement.url;
-                  }}
+                  })}
                 >
                   閱讀更多
                 </Button>
