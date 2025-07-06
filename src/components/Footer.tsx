@@ -8,10 +8,18 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">聯絡資訊</h3>
             <div className="space-y-2 text-sm opacity-90">
-              <p>國立臺灣大學生物機電工程學系</p>
-              <p>台北市大安區羅斯福路四段一號</p>
-              <p>電話：(02) 3366-xxxx</p>
-              <p>Email: bioengineer@ntu.edu.tw</p>
+              <a href="https://www.bime.ntu.edu.tw/Default.html" target="_blank" className="block">
+                國立臺灣大學生物機電工程學系
+              </a>
+              <a href="https://maps.app.goo.gl/afsLf3jHHbn7BKfP8" target="_blank" className="block">
+                台北市大安區羅斯福路四段一號
+              </a>
+              <a href="tel:0233665339" target="_blank" className="block">
+                電話：(02) 3366-5339
+              </a>
+              <a href="mailto:bimestudy2024@gmail.com" target="_blank" className="block">
+                Email: bimestudy2024@gmail.com
+              </a>
             </div>
           </div>
 
@@ -19,10 +27,10 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">快速連結</h3>
             <div className="space-y-2 text-sm opacity-90">
-              <a href="#" className="block hover:opacity-100 transition-opacity">系學會成員</a>
-              <a href="#" className="block hover:opacity-100 transition-opacity">活動資訊</a>
-              <a href="#" className="block hover:opacity-100 transition-opacity">文件下載</a>
-              <a href="#" className="block hover:opacity-100 transition-opacity">資源申請</a>
+              <a href="/#/members" className="block hover:opacity-100 transition-opacity">系學會成員</a>
+              <a href="/#/activities" className="block hover:opacity-100 transition-opacity">活動資訊</a>
+              <a href="/#/documents" className="block hover:opacity-100 transition-opacity">文件下載</a>
+              <a href="/#/resources" className="block hover:opacity-100 transition-opacity">資源申請</a>
             </div>
           </div>
 
