@@ -9,6 +9,7 @@ interface Announcement {
   content: string;
   date: string;
   isNew?: boolean;
+  url?: string;
 }
 
 const AnnouncementSection = () => {
@@ -18,7 +19,8 @@ const AnnouncementSection = () => {
       title: "迎新茶會",
       content: "歡迎大一新生來參加迎新茶會！時間：9月15日下午2點，地點：系館1樓交誼廳。將有學長姐分享經驗，還有豐富的茶點招待。",
       date: "2025-01-06",
-      isNew: true
+      isNew: true,
+      url: "https://www.google.com",
     },
     {
       id: 2,
@@ -76,6 +78,9 @@ const AnnouncementSection = () => {
                   variant="outline" 
                   size="sm" 
                   className="w-full hover:bg-primary hover:text-primary-foreground transition-colors"
+                  onClick={() => {
+                    window.location.href=announcement.url;
+                  }}
                 >
                   閱讀更多
                 </Button>
