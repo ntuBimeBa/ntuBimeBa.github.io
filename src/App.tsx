@@ -12,6 +12,7 @@ import Activities from "./pages/Activities";
 import Documents from "./pages/Documents";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Layout from "./Layout";
 
 const queryClient = new QueryClient();
 
@@ -22,14 +23,16 @@ const App = () => (
       <Sonner />
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/members" element={<Members />} />
-          <Route path="/legacy" element={<Legacy />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/activities" element={<Activities />} />
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Index />} />
+            <Route path="members" element={<Members />} />
+            <Route path="legacy" element={<Legacy />} />
+            <Route path="resources" element={<Resources />} />
+            <Route path="activities" element={<Activities />} />
+            <Route path="documents" element={<Documents />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </HashRouter>
     </TooltipProvider>
