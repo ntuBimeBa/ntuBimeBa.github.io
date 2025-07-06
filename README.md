@@ -61,7 +61,8 @@
   
   提供系學會 Facebook, Instagram, Threads, 系上市話與生機系官網等連結。
 
-以下為 Lovable 生成專案的固有資訊
+  (以下為 Lovable 生成專案的固有資訊)
+
 ---
 
 # Welcome to your Lovable project
