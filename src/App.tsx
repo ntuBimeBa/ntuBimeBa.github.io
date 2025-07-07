@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import Layout from "./Layout";
 import Announcement from "./pages/Announcement";
 import { AuthProvider } from "./context/AuthContext";
+import LineLogin from "./pages/LineLogin";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="documents" element={<Documents />} />
             <Route path="contact" element={<Contact />} />
             <Route path="announcement" element={<Announcement />} />
+            <Route path="line-login" element={<LineLogin />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
