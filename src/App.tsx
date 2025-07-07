@@ -14,11 +14,13 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Layout from "./Layout";
 import Announcement from "./pages/Announcement";
+import { AuthProvider } from "./context/AuthContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <AuthProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -38,6 +40,7 @@ const App = () => (
         </Routes>
       </HashRouter>
     </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
