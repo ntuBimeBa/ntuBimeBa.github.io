@@ -13,6 +13,7 @@ import Documents from "./pages/Documents";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Layout from "./Layout";
+import Announcement from "./pages/Announcement";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="activities" element={<Activities />} />
             <Route path="documents" element={<Documents />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="announcement" element={<Announcement />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

@@ -2,6 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 interface Announcement {
   id: number;
@@ -37,6 +38,8 @@ const AnnouncementSection = () => {
       isNew: false
     }
   ];
+
+  const navigate = useNavigate();
 
   return (
     <section className="py-16 bg-gradient-to-br from-secondary/30 to-accent/20">
@@ -94,6 +97,9 @@ const AnnouncementSection = () => {
             variant="default" 
             size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+            onClick={() => {
+              navigate('announcement');
+            }}
           >
             查看所有公告
           </Button>
