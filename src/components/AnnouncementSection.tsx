@@ -3,15 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-
-interface Announcement {
-  id: number;
-  title: string;
-  content: string;
-  date: string;
-  isNew?: boolean;
-  url?: string;
-}
+import { Announcement } from '@/lib/Structures';
 
 const AnnouncementSection = () => {
   const announcements: Announcement[] = [
