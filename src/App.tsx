@@ -30,6 +30,8 @@ const App = () => (
       <HashRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
+
+            {/* 個主框架路由設置 */}
             <Route index element={<Index />} />
             <Route path="members" element={<Members />} />
             <Route path="legacy" element={<Legacy />} />
@@ -43,6 +45,9 @@ const App = () => (
 
              {/* 公告加入動態路由 */}
              <Route path="/announcement/:id" element={<AnnouncementSection />} />
+
+             {/* 系產搜尋跳轉路由 */}
+             <Route path="/legacy" element={<Legacy />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>
