@@ -1,96 +1,107 @@
-import { useState, useMemo } from 'react'
-import Footer from '@/components/Footer'
-import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { LockIcon } from 'lucide-react'
+// 後端找資料指令: GET https://your-backend.com/api/legacy
 
-interface LegacyFile {
-  id: number
-  title: string
-  subject: string
-  date: string // 格式：YYYY-MM-DD
-}
 
-const mockFiles: LegacyFile[] = [
-  { id: 1, title: '生物力學期中考', subject: '生物力學', date: '2024-11-01' },
-  { id: 2, title: '線性代數歷屆考題', subject: '線性代數', date: '2023-06-15' },
-  { id: 3, title: '電路學筆記', subject: '電路學', date: '2025-01-10' },
-  { id: 4, title: '生醫訊號報告範例', subject: '生醫訊號', date: '2024-03-20' },
-  { id: 5, title: '普通物理實驗記錄', subject: '普物實驗', date: '2022-12-02' },
-]
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Input } from "@/components/ui/input";
+import { Select, SelectItem } from "@/components/ui/select";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+type LegacyFile = {
+  id: number;
+  title: string;
+  subject: string;
+  date: string;
+  url: string;
+};
 
 const Legacy = () => {
-  const [search, setSearch] = useState('')
-  const [sortOption, setSortOption] = useState('newest')
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const [files, setFiles] = useState<LegacyFile[]>([]);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("newest");
 
-  const filteredFiles = useMemo(() => {
-    let filtered = mockFiles.filter(
-      (file) =>
-        file.title.includes(search) || file.subject.includes(search)
-    )
-
-    switch (sortOption) {
-      case 'newest':
-        return filtered.sort((a, b) => b.date.localeCompare(a.date))
-      case 'oldest':
-        return filtered.sort((a, b) => a.date.localeCompare(b.date))
-      case 'subject':
-        return filtered.sort((a, b) => a.subject.localeCompare(b.subject))
-      default:
-        return filtered
+  useEffect(() => {
+    if (!token) {
+      alert("請先登入後再查看此頁面");
+      navigate("/login");
+      return;
     }
-  }, [search, sortOption])
+
+    const fetchFiles = async () => {
+      try {
+        const response = await axios.get("https://your-backend.com/api/legacy", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setFiles(response.data);
+      } catch (error) {
+        console.error("無法取得系產資料：", error);
+      }
+    };
+
+    fetchFiles();
+  }, [token, navigate]);
+
+  // 篩選與排序
+  const filtered = files
+    .filter(f => f.title.includes(search) || f.subject.includes(search))
+    .sort((a, b) => {
+      if (sortBy === "newest") return b.date.localeCompare(a.date);
+      if (sortBy === "oldest") return a.date.localeCompare(b.date);
+      return a.subject.localeCompare(b.subject);
+    });
+
+  if (!token) return null;
 
   return (
-    <div>
-      <main className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-primary text-center mb-6">系產服務</h1>
-          <p className="text-center text-muted-foreground mb-8">
-            本服務需登入才能檢視詳細內容。資料僅供系內使用，請勿外流或任意下載。
-          </p>
+    <div className="p-6 max-w-5xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">系產服務資源</h1>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-            <Input
-              placeholder="搜尋文件標題或科目..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="max-w-sm"
-            />
-            <Select value={sortOption} onValueChange={setSortOption}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="排序方式" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="newest">由新到舊</SelectItem>
-                <SelectItem value="oldest">由舊到新</SelectItem>
-                <SelectItem value="subject">依科目排序</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <div className="flex gap-4 mb-6">
+        <Input
+          placeholder="搜尋標題或科目..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Select value={sortBy} onValueChange={setSortBy}>
+          <SelectItem value="newest">由新到舊</SelectItem>
+          <SelectItem value="oldest">由舊到新</SelectItem>
+          <SelectItem value="subject">按科目排序</SelectItem>
+        </Select>
+      </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredFiles.map((file) => (
-              <Card key={file.id} className="hover:shadow-md transition-all">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-primary">{file.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex items-center justify-between text-muted-foreground">
-                  <span className="text-sm">{file.subject}</span>
-                  <span className="text-sm">{file.date}</span>
-                </CardContent>
-                <CardContent className="flex justify-center mt-2">
-                  <LockIcon className="w-5 h-5 text-gray-400" />
-                  <span className="text-sm ml-2 text-muted-foreground">不可下載</span>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {filtered.length === 0 ? (
+        <p className="text-muted-foreground">找不到符合條件的資源。</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((file) => (
+            <Card key={file.id} className="transition hover:shadow-md">
+              <CardHeader>
+                <h2 className="text-lg font-semibold">{file.title}</h2>
+                <p className="text-sm text-muted-foreground">{file.subject}</p>
+                <p className="text-xs text-muted-foreground">{file.date}</p>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  variant="link"
+                  className="text-primary p-0"
+                  onClick={() => window.open(file.url, "_blank")}
+                >
+                  查看檔案（不可下載）
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </main>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Legacy
+export default Legacy;
