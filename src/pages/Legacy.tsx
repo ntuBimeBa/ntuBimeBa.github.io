@@ -89,7 +89,6 @@ const Legacy = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   )
 }

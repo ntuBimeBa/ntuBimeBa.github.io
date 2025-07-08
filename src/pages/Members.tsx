@@ -75,7 +75,6 @@ const Members = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   )
 }

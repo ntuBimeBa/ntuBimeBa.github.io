@@ -81,7 +81,6 @@ const Documents = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   )
 }
