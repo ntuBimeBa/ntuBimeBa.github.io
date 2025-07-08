@@ -73,7 +73,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const data = await res.json();
-    console.log(data);
     const user_data: UserData = {
       uid: data.uid,
       username: data.username,
