@@ -16,6 +16,7 @@ const Navigation = () => {
     { label: '活動資訊', path: '/activities' },
     { label: '文件下載', path: '/documents' },
     { label: '連絡我們', path: '/contact' },
+    { label: '帳號管理', path: '/profile' },
   ];
 
   const isActive = (path: string) => location.pathname === path;

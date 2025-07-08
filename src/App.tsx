@@ -16,6 +16,7 @@ import Layout from "./Layout";
 import Announcement from "./pages/Announcement";
 import { AuthProvider } from "./context/AuthContext";
 import LineLogin from "./pages/LineLogin";
+import ProfilePage from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="contact" element={<Contact />} />
             <Route path="announcement" element={<Announcement />} />
             <Route path="line-login" element={<LineLogin />} />
+            <Route path="profile" element={<ProfilePage />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

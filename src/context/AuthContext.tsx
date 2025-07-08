@@ -4,6 +4,7 @@ interface AuthContextType {
   token: string | null;
   setToken: (token: string | null) => void;
   logout: () => void;
+  verifyToken: (token?: string) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,12 +28,39 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setTokenState(token);
   };
 
+  const verifyToken = async (currentToken?: string) => {
+    const useToken = currentToken ?? token;  // 優先用傳入的
+    if (useToken) {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/user_entry`, {
+          headers: {
+            Authorization: `Bearer ${useToken}`,
+          },
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error);
+        }
+
+        console.log("驗證成功");
+        return true;
+      } catch (error) {
+        console.error("驗證失敗:", error);
+        return false;
+      }
+    } else {
+      console.warn("缺少 token");
+      return false;
+    }
+  };
+
   const logout = () => {
     setToken(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken, logout }}>
+    <AuthContext.Provider value={{ token, setToken, logout, verifyToken }}>
       {children}
     </AuthContext.Provider>
   );
