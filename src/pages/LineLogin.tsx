@@ -5,7 +5,7 @@ import { Verified } from 'lucide-react';
 
 const LineLogin = () => {
   const navigate = useNavigate();
-  const { setToken, verifyToken } = useAuth();  // 取得 setToken
+  const { setToken, verifyToken, token } = useAuth();  // 取得 setToken
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -13,23 +13,22 @@ const LineLogin = () => {
     const token = urlParams.get('token');
 
     if (token) {
-      setToken(token);  // ✅ 儲存到 AuthContext + localStorage（你的 setToken 已經會存 localStorage）
+      setToken(token);
       console.log('JWT 已儲存:', token);
-
-      // 清除 token，保留 hash 路由
-      window.location.hash = '#/line-login';
 
       const verify = async () => {
         const Verified = await verifyToken(token);
         console.log(`verified: ${Verified}`);
+        window.history.replaceState(null, '', '#/line-login');
         navigate('/');
-      }
+      };
       verify();
-      
+
     } else {
-      alert('登入失敗，缺少 token');
+      console.log("無 token，不處理");
     }
   }, [navigate, setToken, verifyToken]);
+
 
   return (
     <div>

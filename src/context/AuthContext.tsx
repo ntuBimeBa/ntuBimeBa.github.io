@@ -55,6 +55,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const getUserData = async () => {
+    
+  }
+
   const logout = () => {
     setToken(null);
   };
