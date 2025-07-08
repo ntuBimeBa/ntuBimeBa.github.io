@@ -17,3 +17,17 @@ export interface Resource {
   button_str?: string;
 }
 
+export interface UserData {
+  uid: string;
+  username: string;
+  real_name?: string;
+  stu_id?: string;
+  profile_img?: string;
+  sa_fee: number;
+  access_maker_space_reservation: number;
+  email?: string;
+  tel?: string;
+  discord?: string;
+  address?: string;
+  note?: string;
+}
