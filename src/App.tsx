@@ -17,6 +17,7 @@ import Announcement from "./pages/Announcement";
 import { AuthProvider } from "./context/AuthContext";
 import LineLogin from "./pages/LineLogin";
 import ProfilePage from "./pages/Profile";
+import AnnouncementSection from "./components/AnnouncementSection";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,10 @@ const App = () => (
             <Route path="announcement" element={<Announcement />} />
             <Route path="line-login" element={<LineLogin />} />
             <Route path="profile" element={<ProfilePage />} />
+
+             {/* 公告加入動態路由 */}
+             <Route path="/announcement/:id" element={<AnnouncementSection />} />
+
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
