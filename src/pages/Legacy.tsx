@@ -39,7 +39,7 @@ const Legacy = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setFiles(response.data);
+        setFiles(Array.isArray(response.data.legacy) ? response.data.legacy : []);
       } catch (error) {
         console.error("無法取得系產資料：", error);
       }
