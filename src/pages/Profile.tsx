@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { UserData } from "@/lib/Structures";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const ProfilePage = () => {
+const Profile = () => {
   const authChecked = useAuthGuard();  // ✅ 自動驗證登入
   const { getUserData } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
-    if (!authChecked) return;  // 等待驗證完成再執行
+    if (!authChecked) return;
 
     const fetchUserData = async () => {
       try {
@@ -25,18 +26,38 @@ const ProfilePage = () => {
   }, [authChecked, getUserData]);
 
   if (!userData) {
-    return <div>載入中...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg text-muted-foreground animate-pulse">載入中...</div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2>帳號管理頁面</h2>
-      <p>姓名：{userData.real_name ?? "未提供"}</p>
-      <p>學號：{userData.stu_id ?? "未提供"}</p>
-      <p>帳號：{userData.username}</p>
-      {/* 你可以加更多欄位 */}
+    <div className="max-w-2xl mx-auto mt-16 px-4">
+      <Card className="shadow-lg border border-border animate-fade-in">
+        <CardHeader>
+          <CardTitle className="text-2xl text-center text-primary font-bold">
+            帳號管理
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 text-foreground">
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-muted-foreground">姓名</span>
+            <span>{userData.real_name ?? "未提供"}</span>
+          </div>
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-muted-foreground">學號</span>
+            <span>{userData.stu_id ?? "未提供"}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">帳號</span>
+            <span>{userData.username}</span>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
 
-export default ProfilePage;
+export default Profile;
