@@ -34,7 +34,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="flex items-start justify-center py-16 px-4 pt-24">
+    <div className="py-16 px-4 pt-24">
       <Card className="shadow-lg border border-border animate-fade-in w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-primary font-bold">
