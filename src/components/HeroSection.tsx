@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
       {/* 背景圖片 */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/placeholder.svg')`
@@ -16,9 +16,11 @@ const HeroSection = () => {
         {/* 可替換的圖片佔位符 */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-accent/60 flex items-center justify-center">
           <div className="text-center text-white p-8 bg-black/20 rounded-lg backdrop-blur-sm">
-            <div className="text-6xl mb-4">🎓</div>
-            <p className="text-lg opacity-90">學生活動與系學會形象</p>
-            <p className="text-sm opacity-75 mt-2">請上傳您的橫幅圖片來替換此佔位符</p>
+            <img
+            src="https://webpageprod-ws.ntu.edu.tw/001/Upload/1109/relpic/63989/99773/c153b887-112a-44c7-a72b-01c245f1621e.jpg"  // 這邊放你的圖片 URL
+            alt="橫幅圖片"
+            className="w-full h-full object-cover rounded-lg opacity-40" // 可在此調整圖片顯示效果
+            />
           </div>
         </div>
       </div>
@@ -34,17 +36,17 @@ const HeroSection = () => {
         <p className="text-base md:text-lg mb-12 opacity-80 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           連結同學情誼，促進學術交流，創造豐富精彩的大學生活體驗
         </p>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg"
             onClick={() => navigate('/members')}
           >
             了解更多
           </Button>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="lg"
             className="border-white text-black hover:bg-white hover:text-primary px-8 py-3 text-lg"
             onClick={() => navigate('/contact')}

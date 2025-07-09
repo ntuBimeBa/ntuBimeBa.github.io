@@ -10,7 +10,7 @@ const Resources = () => {
       title: "201 原創中心預約系統",
       description: "想要進 201 盡情發揮您的創客精神的話，請先到這裡預約，好讓我們知道喔~",
       enable: true,
-      url: "https://example.com",  // ✅ 記得填網址
+      url: "https://example.com",  // 記得填網址
       img: makerspace_rsv_img,
       button_str: "前往預約"
     }

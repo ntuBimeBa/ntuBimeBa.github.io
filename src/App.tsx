@@ -31,7 +31,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Layout />}>
 
-            {/* 個主框架路由設置 */}
+            {/* 各主框架路由設置 */}
             <Route index element={<Index />} />
             <Route path="members" element={<Members />} />
             <Route path="legacy" element={<Legacy />} />
