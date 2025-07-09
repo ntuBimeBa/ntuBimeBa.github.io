@@ -51,7 +51,7 @@ const Activities = () => {
   // 取得所有活動列表
   useEffect(() => {
     axios.get('/api/activities')
-      .then((res) => setActivities(res.data))
+      .then((res) => setActivities(Array.isArray(res.data.activities) ? res.data.activities : []))
       .catch((err) => console.error('Failed to fetch activities', err));
   }, []);
 
