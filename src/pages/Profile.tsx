@@ -4,8 +4,8 @@ import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { UserData } from "@/lib/Structures";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const Profile = () => {
-  const authChecked = useAuthGuard();  // ✅ 自動驗證登入
+const ProfilePage = () => {
+  const authChecked = useAuthGuard();
   const { getUserData } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
 
@@ -34,8 +34,8 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-16 px-4">
-      <Card className="shadow-lg border border-border animate-fade-in">
+    <div className="flex items-start justify-center py-16 px-4 pt-24">
+      <Card className="shadow-lg border border-border animate-fade-in w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-primary font-bold">
             帳號管理
@@ -60,4 +60,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
