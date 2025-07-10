@@ -11,7 +11,7 @@ export default function Legacy() {
   const [enable, setEnable] = useState(false);
 
   // 載入器
-  const [tagsLoading, setTagsLoading] = useState(false);
+  const [tagsLoading, setTagsLoading] = useState(true);
   
   const [documents, setDocuments] = useState([]);
   const [tags, setTags] = useState([]);
@@ -41,19 +41,21 @@ export default function Legacy() {
 
         // console.log("狀態碼：", response.status);
         if (response.status === 200) {
-          console.log("存取權確認成功", response.data.error);
+          console.log("存取權確認成功", response.data.message);
           setEnable(true);
         } else {
-          console.warn("未通過存取權", response.data.error);
+          console.warn("未通過存取權", response.data.message);
           setEnable(false);
         }
       } catch (error) {
         // 這邊要小心，error.response 才有 status
         if (error.response) {
-          console.error("伺服器回應錯誤狀態", error.response.status, error.response.data);
+          console.warn("未通過存取權", error.response.data.message);
+          setEnable(false);
         } else {
           console.error("無法連線或其他錯誤", error);
         }
+        setEnable(false);
       }
     };
 
@@ -61,11 +63,11 @@ export default function Legacy() {
   }, [authChecked]);
 
   useEffect(() => {
-    if(enable) {
+    if(enable && token) {
       fetchDocuments();
       fetchTags();
     }
-  }, [enable]);
+  }, [enable, token]);
 
   const fetchDocuments = async () => {
     const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/legacy`, {
@@ -89,8 +91,12 @@ export default function Legacy() {
     setTagsLoading(true);
     console.log("Fetching tags...");
     try {
+      console.log(token);
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/legacy`, {
         params: { list_tags: true },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       setTags(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
