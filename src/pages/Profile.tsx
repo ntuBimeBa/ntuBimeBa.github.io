@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { UserData } from "@/lib/Structures";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import LoadingSpinner from "@/components/LoadinigSpinner";
 
 const ProfilePage = () => {
   const authChecked = useAuthGuard();
@@ -26,16 +27,12 @@ const ProfilePage = () => {
   }, [authChecked, getUserData]);
 
   if (!userData) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-lg text-muted-foreground animate-pulse">載入中...</div>
-      </div>
-    );
+    return(<LoadingSpinner />);
   }
 
   return (
     <div className="py-16 px-4 pt-24">
-      <Card className="shadow-lg border border-border animate-fade-in w-full max-w-2xl">
+      <Card className="shadow-lg border border-border animate-fade-in w-full max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-primary font-bold">
             帳號管理
