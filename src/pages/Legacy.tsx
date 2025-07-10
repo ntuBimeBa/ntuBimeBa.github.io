@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
-import { Select, SelectItem } from "@/components/ui/select";
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
+import LoadingSpinner from "@/components/LoadinigSpinner";
 
 type LegacyFile = {
   id: number;
@@ -19,6 +21,7 @@ type LegacyFile = {
 };
 
 const Legacy = () => {
+  const authChecked = useAuthGuard();
   const { token } = useAuth();
   const navigate = useNavigate();
   const [files, setFiles] = useState<LegacyFile[]>([]);
@@ -26,15 +29,11 @@ const Legacy = () => {
   const [sortBy, setSortBy] = useState("newest");
 
   useEffect(() => {
-    if (!token) {
-      alert("請先登入後再查看此頁面");
-      navigate("/login");
-      return;
-    }
+    if(!authChecked) return;
 
     const fetchFiles = async () => {
       try {
-        const response = await axios.get("https://your-backend.com/api/legacy", {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/legacy`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +45,7 @@ const Legacy = () => {
     };
 
     fetchFiles();
-  }, [token, navigate]);
+  }, [authChecked, token, navigate]);
 
   // 篩選與排序
   const filtered = files
@@ -57,7 +56,9 @@ const Legacy = () => {
       return a.subject.localeCompare(b.subject);
     });
 
-  if (!token) return null;
+  if (!authChecked || !token) {
+    return(<LoadingSpinner />);
+  }
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -70,9 +71,14 @@ const Legacy = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectItem value="newest">由新到舊</SelectItem>
-          <SelectItem value="oldest">由舊到新</SelectItem>
-          <SelectItem value="subject">按科目排序</SelectItem>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="選擇排序" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">由新到舊</SelectItem>
+            <SelectItem value="oldest">由舊到新</SelectItem>
+            <SelectItem value="subject">按科目排序</SelectItem>
+          </SelectContent>
         </Select>
       </div>
 
