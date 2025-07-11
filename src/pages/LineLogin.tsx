@@ -14,15 +14,23 @@ const LineLogin = () => {
     const hash = window.location.hash;
     const urlParams = new URLSearchParams(hash.split('?')[1]);
     const token = urlParams.get('token');
+    const status_code = Number(urlParams.get('status_code') ?? '1');
+
+    window.history.replaceState(null, '', '#/line-login');
 
     if (token) {
       setToken(token);
-      console.log('JWT 已儲存:', token);
-      console.log(referrer);
+      if(status_code !== 0) {
+        // 例外情況
+        if(status_code === 2) {
+          // 需要補齊資料
+          navigate('/login-complete-action');
+          return;
+        }
+      }
       const verify = async () => {
         const Verified = await verifyToken(token);
         console.log(`verified: ${Verified}`);
-        window.history.replaceState(null, '', '#/line-login');
         navigate(referrer);
       };
       verify();

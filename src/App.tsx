@@ -20,6 +20,7 @@ import ProfilePage from "./pages/Profile";
 import AnnouncementSection from "./components/AnnouncementSection";
 import Login from "./pages/Login";
 import LogoutPage from "./pages/Logout";
+import CompleteProfileForm from "./pages/Login_CompleteAction";
 
 const queryClient = new QueryClient();
 
@@ -46,11 +47,14 @@ const App = () => (
             <Route path="logout" element={<LogoutPage />} />
             <Route path="profile" element={<ProfilePage />} />
 
-             {/* 公告加入動態路由 */}
-             <Route path="/announcement/:id" element={<AnnouncementSection />} />
+            {/* 初次登入的設定頁面 */}
+            <Route path="login-complete-action" element={<CompleteProfileForm />} />
 
-             {/* 系產搜尋跳轉路由 */}
-             <Route path="/legacy" element={<Legacy />} />
+            {/* 公告加入動態路由 */}
+            <Route path="/announcement/:id" element={<AnnouncementSection />} />
+
+            {/* 系產搜尋跳轉路由 */}
+            <Route path="/legacy" element={<Legacy />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -10,6 +10,7 @@ interface AuthContextType {
   loading: boolean;
   referrer: string;
   setReferrer: (ref?: string | null) => void;
+  userStatusCode: number;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setTokenState] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [ userStatusCode, setUserStatusCode] = useState<number | null>(null);
   const [referrer, setReferrerState] = useState("/");
 
   useEffect(() => {
@@ -63,13 +65,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (!res.ok) {
           const err = await res.json();
-          throw new Error(err.error);
+          throw err;
         }
 
         console.log("驗證成功");
+        setUserStatusCode(0);
         return true;
-      } catch (error) {
-        console.error("驗證失敗:", error);
+      } catch (err) {
+        console.error("驗證失敗:", err.error);
+        setUserStatusCode(err.status);
         return false;
       }
     } else {
@@ -112,7 +116,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken, logout, verifyToken, getUserData, loading, referrer, setReferrer }}>
+    <AuthContext.Provider value={{ token, setToken, logout, verifyToken, getUserData, loading, referrer, setReferrer, userStatusCode }}>
       {children}
     </AuthContext.Provider>
   );
