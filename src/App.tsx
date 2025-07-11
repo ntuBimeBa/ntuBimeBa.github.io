@@ -19,6 +19,7 @@ import LineLogin from "./pages/LineLogin";
 import ProfilePage from "./pages/Profile";
 import AnnouncementSection from "./components/AnnouncementSection";
 import Login from "./pages/Login";
+import LogoutPage from "./pages/Logout";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="announcement" element={<Announcement />} />
             <Route path="line-login" element={<LineLogin />} />
             <Route path="login" element={<Login />} />
+            <Route path="logout" element={<LogoutPage />} />
             <Route path="profile" element={<ProfilePage />} />
 
              {/* 公告加入動態路由 */}

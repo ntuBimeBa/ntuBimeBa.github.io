@@ -4,11 +4,15 @@ import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { UserData } from "@/lib/Structures";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import LoadingSpinner from "@/components/LoadinigSpinner";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const authChecked = useAuthGuard('/profile');
   const { getUserData } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!authChecked) return;
@@ -17,7 +21,6 @@ const ProfilePage = () => {
       try {
         const data = await getUserData();
         setUserData(data);
-        console.log("使用者資料：", data);
       } catch (error) {
         console.error("取得使用者資料失敗：", error);
       }
@@ -32,7 +35,7 @@ const ProfilePage = () => {
 
   return (
     <div className="py-16 px-4 pt-24">
-      <Card className="shadow-lg border border-border animate-fade-in w-full max-w-2xl mx-auto">
+      <Card className="shadow-lg border border-border animate-fade-in w-full max-w-2xl mx-auto flex flex-col flex-wrap content-stretch">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-primary font-bold">
             帳號管理
@@ -52,6 +55,12 @@ const ProfilePage = () => {
             <span>{userData.username}</span>
           </div>
         </CardContent>
+        <Button 
+          variant="destructive"
+          size="lg"
+          className="bg-destructive hover:bg-destructive/80 text-primary-foreground px-8 py-3 text-lg mx-auto mb-5"
+          onClick={() => navigate('/logout')}
+        >登出</Button>
       </Card>
     </div>
   );

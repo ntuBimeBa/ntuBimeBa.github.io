@@ -89,7 +89,6 @@ export default function Legacy() {
     setTagsLoading(true);
     console.log("Fetching tags...");
     try {
-      console.log(token);
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/legacy`, {
         params: { list_tags: true },
         headers: {
