@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { useAuth } from "@/context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Legacy() {
-  const authChecked = useAuthGuard();
+  const authChecked = useAuthGuard('/legacy');
   const { token } = useAuth();
-  const navigate = useNavigate();
   const [enable, setEnable] = useState(false);
 
   // 載入器

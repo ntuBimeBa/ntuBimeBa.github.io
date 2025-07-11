@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import LoadingSpinner from "@/components/LoadinigSpinner";
 
 const ProfilePage = () => {
-  const authChecked = useAuthGuard();
+  const authChecked = useAuthGuard('/profile');
   const { getUserData } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
 

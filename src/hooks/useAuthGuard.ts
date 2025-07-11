@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export const useAuthGuard = () => {
-  const { verifyToken, loading } = useAuth();
+export const useAuthGuard = (ref?: string | "/") => {
+  const { verifyToken, loading, setReferrer } = useAuth();
   const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loading) return;
@@ -12,7 +14,8 @@ export const useAuthGuard = () => {
       const verified = await verifyToken();
       if (!verified) {
         alert("您尚未登入，將跳轉至登入頁");
-        window.location.href = import.meta.env.VITE_LINE_LOGIN_URI;
+        setReferrer(ref);
+        navigate('/login');
       } else {
         setChecked(true);
       }

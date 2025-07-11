@@ -1,33 +1,64 @@
-import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
+import { toast } from "@/components/ui/sonner";
 
 const Login = () => {
-  const { setToken } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    if (res.ok) {
-      const data = await res.json();
-      setToken(data.token); // 存 token
-      alert("登入成功");
-    } else {
-      alert("登入失敗");
-    }
+    // 表單功能暫時停用，不會真的送出
+  };
+
+  const handleFormInteraction = () => {
+    console.error("Email 登入功能開發中");
+    toast.error("Email 登入功能開發中");
+  };
+
+  const handleLineLogin = () => {
+    window.location.href = import.meta.env.VITE_LINE_LOGIN_URI;
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="border" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="border" />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">登入</button>
-    </form>
+    <div className="space-y-6 flex flex-col w-1/3 m-auto">
+      <button
+        onClick={handleLineLogin}
+        className="bg-green-500 text-white px-8 py-5 rounded"
+      >
+        以 LINE 登入
+      </button>
+
+      <div
+        onClick={handleFormInteraction}
+        onMouseEnter={handleFormInteraction}
+        className="space-y-4 opacity-50 cursor-not-allowed"
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="border w-full p-2"
+            disabled
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="border w-full p-2"
+            disabled
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+            disabled
+          >
+            登入
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

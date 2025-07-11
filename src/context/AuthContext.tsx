@@ -8,6 +8,8 @@ interface AuthContextType {
   verifyToken: (token?: string) => Promise<boolean>;
   getUserData: () => Promise<UserData>;
   loading: boolean;
+  referrer: string;
+  setReferrer: (ref?: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -15,12 +17,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setTokenState] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [referrer, setReferrerState] = useState("/");
 
   useEffect(() => {
     setLoading(true);
     const storedToken = localStorage.getItem("token");
+    const storedReferrer = localStorage.getItem("referrer")
     if (storedToken) {
       setTokenState(storedToken);
+    }
+    if (storedReferrer) {
+      setReferrerState(storedReferrer);
     }
     setLoading(false);
   }, []);
@@ -33,6 +40,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     setTokenState(token);
   };
+
+  const setReferrer = (ref: string | null = "/") => {
+    if (ref) {
+      localStorage.setItem("referrer", ref);
+      setReferrerState(ref);
+    } else {
+      localStorage.setItem("/", ref);
+      setReferrerState("/");
+    }
+  }
 
   const verifyToken = async (currentToken?: string) => {
     const useToken = currentToken ?? token;  // 優先用傳入的
@@ -95,7 +112,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, setToken, logout, verifyToken, getUserData, loading }}>
+    <AuthContext.Provider value={{ token, setToken, logout, verifyToken, getUserData, loading, referrer, setReferrer }}>
       {children}
     </AuthContext.Provider>
   );

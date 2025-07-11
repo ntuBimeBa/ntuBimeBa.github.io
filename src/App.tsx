@@ -18,6 +18,7 @@ import { AuthProvider } from "./context/AuthContext";
 import LineLogin from "./pages/LineLogin";
 import ProfilePage from "./pages/Profile";
 import AnnouncementSection from "./components/AnnouncementSection";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -34,13 +35,13 @@ const App = () => (
             {/* 各主框架路由設置 */}
             <Route index element={<Index />} />
             <Route path="members" element={<Members />} />
-            <Route path="legacy" element={<Legacy />} />
             <Route path="resources" element={<Resources />} />
             <Route path="activities" element={<Activities />} />
             <Route path="documents" element={<Documents />} />
             <Route path="contact" element={<Contact />} />
             <Route path="announcement" element={<Announcement />} />
             <Route path="line-login" element={<LineLogin />} />
+            <Route path="login" element={<Login />} />
             <Route path="profile" element={<ProfilePage />} />
 
              {/* 公告加入動態路由 */}
