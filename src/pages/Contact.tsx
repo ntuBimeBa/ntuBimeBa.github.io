@@ -15,7 +15,7 @@ const Contact = () => {
           <div className="flex items-center space-x-4">
             <Mail className="text-primary" />
             <span className="text-base break-all">
-              <a href="mailto:ntu.bimeba@gmail.com" className="hover:underline">
+              <a href="mailto:ntubimeba@gmail.com" className="hover:underline">
                 ntu.bimeba@gmail.com
               </a>
             </span>
