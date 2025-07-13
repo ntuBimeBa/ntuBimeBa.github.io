@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   return (
-    <div className="space-y-6 flex flex-col w-1/3 m-auto">
+    <div className="space-y-6 flex flex-col w-1/4 my-20 mx-auto">
       <button
         onClick={handleLineLogin}
         className="bg-green-500 text-white px-8 py-5 rounded"
