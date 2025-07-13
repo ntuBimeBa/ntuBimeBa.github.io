@@ -75,7 +75,7 @@ const CompleteProfileForm = () => {
         className="bg-white p-8 rounded-xl shadow-lg space-y-4 w-full max-w-md"
       >
         <h2 className="text-2xl font-bold text-center text-gray-800">
-          初めまして
+          您好！
         </h2>
         <h4 className="text-s text-center text-gray-500">
           請填一下這份表單讓我們能夠進一步了解你/妳

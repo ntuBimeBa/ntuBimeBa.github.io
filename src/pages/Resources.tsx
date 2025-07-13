@@ -2,6 +2,7 @@ import { Resource } from '@/lib/Structures';
 
 // Images import
 import makerspace_rsv_img from "@/assets/maker_space_reservation_entry_background.png"
+import book_rsv_img       from "@/assets/Book_example.png"
 
 const Resources = () => {
   const resources: Resource[] = [
@@ -13,6 +14,16 @@ const Resources = () => {
       url: "https://example.com",  // 記得填網址
       img: makerspace_rsv_img,
       button_str: "前往預約"
+    },
+
+    {
+      id: 2,
+      title: "教科書代購登記系統",
+      description: "需要系學會代購教科書的同學請點此登記，代購持續至 2025/08/25 喔！",
+      enable: true,
+      url: "https://example.com",  // 記得填網址
+      img: book_rsv_img,
+      button_str: "前往訂購"
     }
   ];
 

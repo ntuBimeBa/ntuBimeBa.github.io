@@ -10,7 +10,7 @@ export default function Legacy() {
 
   // 載入器
   const [tagsLoading, setTagsLoading] = useState(true);
-  
+
   const [documents, setDocuments] = useState([]);
   const [tags, setTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -171,7 +171,7 @@ export default function Legacy() {
             />
           </div>
           <div className="flex-1">
-            <label className="block mb-2 font-medium">屆數</label>
+            <label className="block mb-2 font-medium">開課年度</label>
             <input
               type="number"
               name="year"

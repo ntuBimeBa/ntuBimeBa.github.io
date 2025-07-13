@@ -25,7 +25,7 @@ const LogoutPage = () => {
       <div className="space-y-6 animate-fade-in">
         <DoorOpen className="w-24 h-24 text-primary mx-auto" />
         <h1 className="text-2xl md:text-4xl font-semibold text-gray-800">
-          出門不揪！
+          登出成功！
         </h1>
         <p className="text-gray-600 text-lg">
           下次回來幫我們帶個披薩！
