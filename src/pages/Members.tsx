@@ -3,6 +3,8 @@ import Footer from '@/components/Footer'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
+// import images
+
 interface Member {
   id: number
   name: string
