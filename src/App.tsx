@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import Index from "./pages/Index";
 import Members from "./pages/Members";
-import Legacy from "./pages/Legacy";
+import Legacy from "./pages/Legacy/Legacy";
 import Resources from "./pages/Resources";
 import Activities from "./pages/Activities";
 import Documents from "./pages/Documents";
@@ -21,6 +21,7 @@ import AnnouncementSection from "./components/AnnouncementSection";
 import Login from "./pages/Login";
 import LogoutPage from "./pages/Logout";
 import CompleteProfileForm from "./pages/Login_CompleteAction";
+import LegacyDocumentUploadForm from "./pages/Legacy/Legacy-upload";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,7 @@ const App = () => (
 
             {/* 系產搜尋跳轉路由 */}
             <Route path="/legacy" element={<Legacy />} />
+            <Route path="/legacy-upload" element={<LegacyDocumentUploadForm />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>
