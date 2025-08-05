@@ -142,8 +142,14 @@ const LegacyDocumentUploadForm: React.FC = () => {
     if (file) formData.append('file', file);
 
     try {
-      await axios.post('/api/submit_document.php', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/legacy`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        },
+        params: {
+          legacy_upload: true,
+        },
       });
       alert('提交成功！');
     } catch (err) {
