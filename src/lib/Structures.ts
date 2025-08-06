@@ -31,3 +31,34 @@ export interface UserData {
   address?: string;
   note?: string;
 }
+
+export interface Notification {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  unread: boolean;
+  actionScript?: () => void;
+}
+
+export interface DashboardLegacyFile {
+  id: string;
+  name: string;
+  year: string;
+  grade: string;
+  semester: number;
+  teacher: string;
+  subject: string;
+  code: string;
+  type: string;
+  description: string;
+  uploadedAt: string;
+}
+
+export interface DashboardTodoItem {
+  id: string;
+  title: string;
+  due: string;
+  actionScript?: () => void;
+}
+

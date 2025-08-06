@@ -16,12 +16,13 @@ import Layout from "./Layout";
 import Announcement from "./pages/Announcement";
 import { AuthProvider } from "./context/AuthContext";
 import LineLogin from "./pages/LineLogin";
-import ProfilePage from "./pages/Profile";
+import ProfilePage from "./pages/Profile/Profile";
 import AnnouncementSection from "./components/AnnouncementSection";
 import Login from "./pages/Login";
 import LogoutPage from "./pages/Logout";
 import CompleteProfileForm from "./pages/Login_CompleteAction";
 import LegacyDocumentUploadForm from "./pages/Legacy/Legacy-upload";
+import DashboardPage from "./pages/Profile/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -46,7 +47,10 @@ const App = () => (
             <Route path="line-login" element={<LineLogin />} />
             <Route path="login" element={<Login />} />
             <Route path="logout" element={<LogoutPage />} />
+
+            {/* 個人檔案管理頁面 */}
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
 
             {/* 初次登入的設定頁面 */}
             <Route path="login-complete-action" element={<CompleteProfileForm />} />
