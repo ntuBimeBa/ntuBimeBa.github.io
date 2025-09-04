@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,7 +8,8 @@ import Members from "./pages/Members";
 import Legacy from "./pages/Legacy/Legacy";
 import Resources from "./pages/Resources";
 import Activities from "./pages/Activities";
-import Documents from "./pages/Documents";
+import Documents from "./pages/Documents/Documents";
+import UploadResultPage from "./pages/Documents/UploadResultPage";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Layout from "./Layout";
@@ -41,7 +41,6 @@ const App = () => (
             <Route path="members" element={<Members />} />
             <Route path="resources" element={<Resources />} />
             <Route path="activities" element={<Activities />} />
-            <Route path="documents" element={<Documents />} />
             <Route path="contact" element={<Contact />} />
             <Route path="announcement" element={<Announcement />} />
             <Route path="line-login" element={<LineLogin />} />
@@ -62,6 +61,11 @@ const App = () => (
             <Route path="/legacy" element={<Legacy />} />
             <Route path="/legacy-upload" element={<LegacyDocumentUploadForm />} />
 
+            {/* 文件上傳下載路由 */}
+            <Route path="documents" element={<Documents />} />
+            <Route path="UploadResultPage" element={<UploadResultPage />} />
+
+            {/* 無效路由 */}
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
