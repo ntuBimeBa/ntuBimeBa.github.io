@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react'
-import Footer from '@/components/Footer'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { DownloadIcon, UploadIcon } from 'lucide-react'
+import { DownloadIcon } from 'lucide-react'
 import axios from 'axios'
-import { useAuth } from '@/context/AuthContext'
-import { useAuthGuard } from '@/hooks/useAuthGuard'
-import { redirect, useNavigate } from 'react-router-dom'
 
 interface DocumentItem {
   name: string
@@ -16,14 +12,6 @@ interface DocumentItem {
 
 const Documents = () => {
   const [documents, setDocuments] = useState<DocumentItem[]>([])
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-
-  const [uploadFiles, setUploadFiles] = useState([]);
-  const [uploading, setUploading] = useState(false);
-
-  const { token } = useAuth();
-  const authChecked = useAuthGuard("", false);
-  const navigate = useNavigate();
 
   // 取得下載清單
   useEffect(() => {
@@ -40,42 +28,6 @@ const Documents = () => {
       console.error("載入文件失敗", error);
     } finally {
       // 結束載入
-    }
-  }
-
-  const handleFileChange = (e) => {
-    setUploadFiles([...e.target.files]); // 將多個檔案存進 state
-  };
-
-  // 上傳檔案
-  const handleUpload = async () => {
-    if (uploadFiles.length === 0) return alert('請先選擇檔案');
-    if (!authChecked) {
-      alert('請先登入');
-      navigate('/login');
-      return;
-    }
-
-    const formData = new FormData()
-
-    uploadFiles.forEach((file) => {
-      formData.append("files", file); // "files" 是後端接收的欄位名稱
-    });
-
-    try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/applications`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`
-        },
-        params: {
-          upload: true,
-          applicationId: 8
-        },
-      });
-      alert('提交成功！');
-    } catch (err) {
-      alert('提交失敗');
     }
   }
 
@@ -110,26 +62,6 @@ const Documents = () => {
                 </Card>
               )
             })}
-          </div>
-
-          {/* 上傳區 */}
-          <div className="text-center mt-12">
-            <input
-              type="file"
-              multiple
-              className="mb-4"
-              onChange={handleFileChange}
-            />
-            <Button
-              className="bg-primary text-white hover:bg-primary/90 px-6 py-2"
-              onClick={handleUpload}
-            >
-              <UploadIcon className="w-4 h-4 mr-2" />
-              上傳已簽名文件
-            </Button>
-            <p className="text-muted-foreground text-sm mt-2">
-              上傳文件僅供申請程序單次使用，系學會保證所有用戶資料安全，請勿濫用本服務！
-            </p>
           </div>
         </div>
       </main>
