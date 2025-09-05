@@ -23,6 +23,7 @@ import LogoutPage from "./pages/Logout";
 import CompleteProfileForm from "./pages/Login_CompleteAction";
 import LegacyDocumentUploadForm from "./pages/Legacy/Legacy-upload";
 import DashboardPage from "./pages/Profile/Dashboard";
+import ApplicationDetail from "./pages/Application/ApplicationDetail";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,9 @@ const App = () => (
             {/* 文件上傳下載路由 */}
             <Route path="documents" element={<Documents />} />
             <Route path="UploadResultPage" element={<UploadResultPage />} />
+
+            { /* 申請作業詳細資料 */ }
+            <Route path="/application_detail/:id" element={<ApplicationDetail />} />
 
             {/* 無效路由 */}
             <Route path="*" element={<NotFound />} />
