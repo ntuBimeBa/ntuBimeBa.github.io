@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "title": "臺大生機系學會",
+    "home": "首頁",
+    "members": "系學會成員",
+    "legacy": "系產服務",
+    "resources": "資源申請",
+    "activities": "活動資訊",
+    "documents": "文件下載",
+    "contact": "連絡我們",
+    "profile": "帳號管理"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "hero": {
+    "title": "臺大生機系學會",
+    "subtitle": "國立臺灣大學生物機電工程學系學生會",
+    "description": "連結同學情誼，促進學術交流，創造豐富精彩的大學生活體驗",
+    "learn_more": "了解更多",
+    "contact_us": "聯絡我們"
+  },
+  "announcement": {
+    "back": "← 返回公告列表",
+    "link": "延伸連結",
+    "latest": "最新公告",
+    "new": "NEW",
+    "read_more": "閱讀更多"
+  },
+  "footer": {
+    "contact": "聯絡資訊",
+    "bime_ntu": "國立臺灣大學生物機電工程學系",
+    "address": "台北市大安區羅斯福路四段一號",
+    "phone": "電話：(02) 3366-5339",
+    "email": "Email: bimestudy2024@gmail.com",
+    "quick_links": "快速連結",
+    "about_us": "關於我們",
+    "description": "臺大生機系學會致力於促進同學間的交流互動，舉辦各類學術與休閒活動，為大家創造美好的大學回憶。",
+    "copyright": "© 2025 臺大生機系學會，保留所有權利。"
+  }
+}

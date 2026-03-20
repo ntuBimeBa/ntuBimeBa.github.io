@@ -3,20 +3,26 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language.startsWith('zh') ? 'en' : 'zh');
+  };
 
   const navItems = [
-    { label: '首頁', path: '/' },
-    { label: '系學會成員', path: '/members' },
-    { label: '系產服務', path: '/legacy' },
-    { label: '資源申請', path: '/resources' },
-    { label: '活動資訊', path: '/activities' },
-    { label: '文件下載', path: '/documents' },
-    { label: '連絡我們', path: '/contact' },
-    { label: '帳號管理', path: '/profile' },
+    { label: t('navigation.home'), path: '/' },
+    { label: t('navigation.members'), path: '/members' },
+    { label: t('navigation.legacy'), path: '/legacy' },
+    { label: t('navigation.resources'), path: '/resources' },
+    { label: t('navigation.activities'), path: '/activities' },
+    { label: t('navigation.documents'), path: '/documents' },
+    { label: t('navigation.contact'), path: '/contact' },
+    { label: t('navigation.profile'), path: '/profile' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -31,7 +37,7 @@ const Navigation = () => {
               to="/" 
               className="text-primary-foreground text-xl font-bold hover:opacity-80 transition-opacity"
             >
-              臺大生機系學會
+              {t('navigation.title')}
             </Link>
           </div>
 
@@ -51,6 +57,13 @@ const Navigation = () => {
                 {item.label}
               </Link>
             ))}
+            
+            <button
+              onClick={toggleLanguage}
+              className="ml-2 px-3 py-2 rounded-md text-sm font-medium text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground transition-all duration-200"
+            >
+              {i18n.language.startsWith('zh') ? 'English' : '中文'}
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -83,6 +96,12 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
+              <button
+                onClick={() => { toggleLanguage(); setIsOpen(false); }}
+                className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground transition-all duration-200"
+              >
+                {i18n.language.startsWith('zh') ? 'English' : '中文'}
+              </button>
             </div>
           </div>
         )}

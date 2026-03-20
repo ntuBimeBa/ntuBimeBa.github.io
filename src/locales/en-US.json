@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "title": "NTU BIME Student Association",
+    "home": "Home",
+    "members": "Members",
+    "legacy": "Legacy Services",
+    "resources": "Resources",
+    "activities": "Activities",
+    "documents": "Documents",
+    "contact": "Contact",
+    "profile": "Profile"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "hero": {
+    "title": "NTU BIME Student Association",
+    "subtitle": "National Taiwan University Biomechatronics Engineering Student Association",
+    "description": "Connecting classmates, promoting academic exchange, creating a rich and wonderful university life experience.",
+    "learn_more": "Learn More",
+    "contact_us": "Contact Us"
+  },
+  "announcement": {
+    "back": "← Back to Announcements",
+    "link": "External Link",
+    "latest": "Latest Announcements",
+    "new": "NEW",
+    "read_more": "Read More"
+  },
+  "footer": {
+    "contact": "Contact Information",
+    "bime_ntu": "NTU Biomechatronics Engineering",
+    "address": "No. 1, Sec. 4, Roosevelt Rd., Da'an Dist., Taipei City",
+    "phone": "Phone: (02) 3366-5339",
+    "email": "Email: bimestudy2024@gmail.com",
+    "quick_links": "Quick Links",
+    "about_us": "About Us",
+    "description": "NTU BIME Student Association is dedicated to promoting exchange and interaction among students, organizing various academic and leisure activities, and creating wonderful university memories for everyone.",
+    "copyright": "© 2025 NTU BIME Student Association. All rights reserved."
+  }
+}

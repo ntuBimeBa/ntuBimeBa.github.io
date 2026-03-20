@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Announcement } from '@/lib/Structures';
+import { useTranslation } from 'react-i18next';
 
 export const announcements: Announcement[] = [
   {
@@ -50,6 +51,7 @@ type Props = {
 
 const AnnouncementSection = ({ mode = 'full' }: Props) => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const { t } = useTranslation();
   const selected = announcements.find((a) => a.id === selectedId);
 
   const displayList = mode === 'home' ? announcements.slice(0, 3) : announcements;
@@ -59,7 +61,7 @@ const AnnouncementSection = ({ mode = 'full' }: Props) => {
       <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4">
           <Button onClick={() => setSelectedId(null)} className="mb-6">
-            ← 返回公告列表
+            {t('announcement.back')}
           </Button>
           <h1 className="text-3xl font-bold mb-4">{selected.title}</h1>
           <p className="text-sm text-muted-foreground mb-2">{selected.date}</p>
@@ -71,7 +73,7 @@ const AnnouncementSection = ({ mode = 'full' }: Props) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              延伸連結
+              {t('announcement.link')}
             </a>
           )}
         </div>
@@ -83,7 +85,7 @@ const AnnouncementSection = ({ mode = 'full' }: Props) => {
     <section className="py-16 bg-gradient-to-br from-secondary/30 to-accent/20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-primary mb-4">最新公告</h2>
+          <h2 className="text-3xl font-bold text-primary mb-4">{t('announcement.latest')}</h2>
           <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
         </div>
 
@@ -101,7 +103,7 @@ const AnnouncementSection = ({ mode = 'full' }: Props) => {
                   </CardTitle>
                   {announcement.isNew && (
                     <Badge variant="default" className="ml-2 shrink-0">
-                      NEW
+                      {t('announcement.new')}
                     </Badge>
                   )}
                 </div>
@@ -119,7 +121,7 @@ const AnnouncementSection = ({ mode = 'full' }: Props) => {
                   className="w-full"
                   onClick={() => setSelectedId(announcement.id)}
                 >
-                  閱讀更多
+                  {t('announcement.read_more')}
                 </Button>
               </CardContent>
             </Card>
