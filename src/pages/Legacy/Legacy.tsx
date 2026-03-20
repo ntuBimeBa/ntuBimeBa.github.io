@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Download } from "lucide-react";
 
 export default function Legacy() {
   const authChecked = useAuthGuard('/legacy');
@@ -64,7 +65,7 @@ export default function Legacy() {
   }, [authChecked]);
 
   useEffect(() => {
-    if(enable && token) {
+    if (enable && token) {
       fetchDocuments();
       fetchTags();
     }
@@ -121,6 +122,45 @@ export default function Legacy() {
     fetchDocuments();
   };
 
+  const handleDownload = async (docId, fileName) => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/legacy`, {
+        params: { download_document: docId },
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        responseType: 'blob'
+      });
+
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+
+      const contentDisposition = res.headers['content-disposition'];
+      let downloadFileName = fileName;
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename\*=UTF-8''(.+)/);
+        if (match && match[1]) {
+          downloadFileName = decodeURIComponent(match[1]);
+        } else {
+          const match2 = contentDisposition.match(/filename="?([^"]+)"?/);
+          if (match2 && match2[1]) {
+            downloadFileName = decodeURIComponent(match2[1]);
+          }
+        }
+      }
+
+      link.setAttribute('download', downloadFileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("下載失敗", error);
+      alert("下載失敗，請稍後再試！");
+    }
+  };
+
   return (
     <div className="relative min-h-screen" >
       <div className="max-w-4xl mx-auto p-4">
@@ -136,11 +176,10 @@ export default function Legacy() {
                 tags.map((tag) => (
                   <button
                     key={tag.id}
-                    className={`px-3 py-1 rounded-full border ${
-                      selectedTags.includes(tag.name)
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200 text-gray-700"
-                    }`}
+                    className={`px-3 py-1 rounded-full border ${selectedTags.includes(tag.name)
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 text-gray-700"
+                      }`}
                     onClick={() => toggleTag(tag.name)}
                   >
                     {tag.name}
@@ -186,7 +225,7 @@ export default function Legacy() {
               />
             </div>
             <div>
-            <label className="block mb-2 font-medium">類型</label>
+              <label className="block mb-2 font-medium">類型</label>
               <select
                 name="type"
                 value={filters.type}
@@ -227,28 +266,37 @@ export default function Legacy() {
 
         <ul className="space-y-4">
           {documents.map((doc) => (
-            <li key={doc.id} className="border p-4 rounded shadow">
-              <h2 className="text-xl font-semibold">{doc.name}</h2>
-              <p>科目: {doc.subject}</p>
-              <p>授課教師: {doc.teacher}</p>
-              <p>
-                學年: {doc.year} 年級: {doc.grade} 學期: {doc.semester}
-              </p>
-              <p>類型: {doc.type}</p>
-              <p>標籤: {doc.tags}</p>
+            <li key={doc.id} className="border p-4 rounded shadow flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-semibold">{doc.name}</h2>
+                <p>科目: {doc.subject}</p>
+                <p>授課教師: {doc.teacher}</p>
+                <p>
+                  學年: {doc.year} 年級: {doc.grade} 學期: {doc.semester}
+                </p>
+                <p>類型: {doc.type}</p>
+                <p>標籤: {doc.tags}</p>
+              </div>
+              <button
+                onClick={() => handleDownload(doc.id, doc.name)}
+                className="p-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full transition-colors shadow-sm"
+                title="下載檔案"
+              >
+                <Download size={20} />
+              </button>
             </li>
           ))}
         </ul>
       </div>
 
       <button
-        onClick={() =>  navigate('/legacy-upload')}
+        onClick={() => navigate('/legacy-upload')}
         className="fixed bottom-20 right-20 bg-green-200 hover:bg-green-300 text-green-800 font-bold w-14 h-14 rounded-xl shadow-lg flex items-center justify-center text-3xl transition-all duration-200"
         title="新增文件"
       >
         +
       </button>
     </div>
-    
+
   );
 }
